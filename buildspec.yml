@@ -33,9 +33,10 @@ phases:
      run-as: root
 #     on-failure: ABORT | CONTINUE
      commands:
-       - aws ec2 create-key-pair --key-name MyKeyPair2 --query 'KeyMaterial' --output text > MyKeyPair2.pem
-       - chmod 400 MyKeyPair2.pem
-       - SecurityGroupID=$(aws ec2 create-security-group --group-name mysecurity-grp-2 --description "security grp for ec2 instance" --vpc-id vpc-01eabbd2b4358ecc1 --query GroupId --output text)
-       - aws ec2 authorize-security-group-ingress --group-id $SecurityGroupID --protocol tcp --port 80 --cidr 0.0.0.0/0
-       - aws ec2 authorize-security-group-ingress --group-id $SecurityGroupID --protocol tcp --port 22 --cidr 0.0.0.0/0
-       - aws ec2 run-instances --image-id ami-07eaf2ea4b73a54f6 --count 1 --instance-type t2.micro --key-name MyKeyPair2 --subnet-id subnet-0ef9c7d5a86c49ffc  --security-group-ids $SecurityGroupID --user-data file://user-data.txt
+       - sed -i 's/8000/'"8001"'/g' .env
+       - aws ec2 run-instances --image-id ami-07eaf2ea4b73a54f6 --count 1 --instance-type t2.micro --key-name ebs-key-pair --subnet-id subnet-0ef9c7d5a86c49ffc  --security-group-ids sg-00db824f1b86fcf7f --user-data file://user-data.txt --associate-public-ip-address       
+       
+
+artifacts:
+  files:
+    - '**/*'

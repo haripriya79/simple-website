@@ -1,8 +1,11 @@
 #!/bin/bash
 yum update -y
-yum install -y httpd.x86_64
+sudo yum install -y httpd.x86_64
+sudo yum install -y  git
+git --version
 systemctl start httpd.service
 systemctl enable httpd.service
+pwd
 cd /var/www/html
-rm index.html
-git clone https://github.com/haripriya79/simple-website.git
+sudo mkdir hari
+sudo git clone https://github.com/haripriya79/simple-website.git
