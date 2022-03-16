@@ -33,10 +33,8 @@ phases:
      run-as: root
 #     on-failure: ABORT | CONTINUE
      commands:
-       - sed -i 's/8000/'"8001"'/g' .env
+       - sed -i 's/8000/'"$port"'/g' .env
        - aws ec2 run-instances --image-id ami-07eaf2ea4b73a54f6 --count 1 --instance-type t2.micro --key-name ebs-key-pair --subnet-id subnet-0ef9c7d5a86c49ffc  --security-group-ids sg-00db824f1b86fcf7f --user-data file://user-data.txt --associate-public-ip-address       
-       
-
 artifacts:
   files:
     - '**/*'
