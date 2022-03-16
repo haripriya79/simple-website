@@ -1,0 +1,24 @@
+version: 0.2
+
+run-as: root
+
+phases:
+  install:
+     run-as: root
+#     on-failure: ABORT | CONTINUE
+     runtime-versions:
+      python: 3.x
+#       runtime: version
+    
+     commands:
+      - echo install phase     
+     
+       
+     finally:
+       - echo install phase completed
+
+  build:
+     run-as: root
+#     on-failure: ABORT | CONTINUE
+     commands:
+       - echo build phase
