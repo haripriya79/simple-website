@@ -8,4 +8,4 @@ systemctl enable httpd.service
 pwd
 cd /var/www/html
 sudo mkdir hari
-sudo git clone https://github.com/haripriya79/simple-website.git
+
