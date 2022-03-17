@@ -39,7 +39,7 @@ phases:
        - INSTANCE_ID=(aws ec2 run-instances --image-id ami-07eaf2ea4b73a54f6 --count 1 --instance-type t2.micro --key-name MyKeyPair --subnet-id subnet-0ef9c7d5a86c49ffc  --security-group-ids sg-00db824f1b86fcf7f --user-data file://user-data.txt --associate-public-ip-address  --query Instances[*].InstanceId --output text)  
 
        - echo $INSTANCE_ID
-       - PUBLIC_IP(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query Reservations[*].Instances[*].PublicIpAddress --output text)
+       - PUBLIC_IP=(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query Reservations[*].Instances[*].PublicIpAddress --output text)
        - echo $PUBLIC_IP
        - scp -i MyKeyPair.pem . ec2-user@$PUBLIC_IP:~/var/www/html
 artifacts:
