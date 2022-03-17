@@ -5,7 +5,8 @@ sudo yum install -y  git
 git --version
 systemctl start httpd.service
 systemctl enable httpd.service
-pwd
-cd /var/www/html
-sudo mkdir hari
+sudo chmod 777 /var/www/html
+sudo chmod 777 /var
+
+
 
