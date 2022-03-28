@@ -36,6 +36,7 @@ phases:
      commands:
        - aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair.pem
        - chmod 400 MyKeyPair.pem
+       - rm ~/.ssh/known_hosts
        - git clone https://github.com/haripriya79/simple-website.git
        - cd simple-website
        - sed -i 's/8000/'"$port"'/g' .env
@@ -43,9 +44,10 @@ phases:
        - echo the instance id is $INSTANCE_ID
        - PUBLIC_IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query Reservations[*].Instances[*].PublicIpAddress --output text)
        - echo public ip address is $PUBLIC_IP
-       - cd ..
+       - sleep 2.0m
+       
        - pwd 
-       - scp -i MyKeyPair.pem ~/simple-website ec2-user@$PUBLIC_IP:~/var/www/html
+       - sudo scp -o StrictHostKeyChecking=no -i MyKeyPair.pem . ec2-user@$PUBLIC_IP:/var/www/html
 artifacts:
   files:
     - '**/*'
